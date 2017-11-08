@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+*.py[cod]
+*$py.class
+
+# PyCharm files
+.idea/
+
+# virtualenv
+tele/
+
+# Instance Folder - used for configuration parameters
+/instance

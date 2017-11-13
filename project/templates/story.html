@@ -10,8 +10,7 @@
       {% if story['author_id'] == author_id %}
         <button onclick="location.href='{{ url_for('edit_text', slug=story['slug']) }}'" class="btn btn-primary" type="submit">Редактировать</button>
       {% endif %}
-    </div><!-- /.container -->
   </div>
-</div>
+</div><!-- /.container -->
 
 {% endblock %}

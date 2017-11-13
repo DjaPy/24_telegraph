@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="col-md-8 col-xs-12">
+    <h2>{{ story['story_title'] }}</h2>
+    <p class="lead">{{ story['story_signature'] }}</p>
+    <p>{{ story['story_body'] }}</p>
+    <p> Ваш id:&nbsp;<a href="{{ url_for('view_text', slug=story['slug']) }}">{{ story['slug'] }}</a></p>
+      {% if story['author_id'] == author_id %}
+        <button onclick="location.href='{{ url_for('edit_text', slug=story['slug']) }}'" class="btn btn-primary" type="submit">Редактировать</button>
+      {% endif %}
+    </div><!-- /.container -->
+  </div>
+</div>
+
+{% endblock %}

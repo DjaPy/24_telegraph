@@ -17,16 +17,15 @@ def update_text(edit_text):
     stories = db.session.query(Story)
     text_update = stories.filter_by(slug=edit_text['slug'])
     text_update.update(edit_text)
+    db.session.commit()
 
 
 @app.route('/', methods=['GET', 'POST'])
 def add_story():
     if request.method == 'POST':
         author_id = request.cookies.get('cookie')
-        print(author_id)
         if not author_id:
             author_id = str(uuid.uuid4())
-        print(author_id)
         story_uuid = str(uuid.uuid4())
         story_title = request.form.get('header')
         story_signature = request.form.get('signature')
@@ -41,8 +40,8 @@ def add_story():
         db.session.commit()
         new_story = make_response(redirect(url_for('view_text',
                                                        slug=slug)))
-        new_story.set_cookie('author_id', author_id, max_age=MAX_AGE_LIVE_COOKIES)
-        print(new_story)
+        new_story.set_cookie('author_id', author_id,
+                             max_age=MAX_AGE_LIVE_COOKIES)
         return new_story
     else:
         return render_template('form.html')
@@ -52,7 +51,6 @@ def add_story():
 def view_text(slug):
     author_id = request.cookies.get('author_id')
     story = db.session.query(Story).get_or_404(slug)
-    print(author_id)
     return render_template('story.html',
                            story=story,
                            author_id=author_id)

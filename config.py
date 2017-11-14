@@ -1,2 +1,2 @@
-SQLALCHEMY_DATABASE_URI = 'sqlite:///telegraph.db'
+SQLALCHEMY_DATABASE_URI = 'sqlite:////telegraph.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False

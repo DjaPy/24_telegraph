@@ -7,6 +7,8 @@ from .models import Story
 
 HOURS_LIVE_COOKIES = 24
 MAX_AGE_LIVE_COOKIES = HOURS_LIVE_COOKIES * 60 * 60
+BAD_REQUEST = 404
+FORBIDDEN = 403
 
 
 def get_slug(title, uuid ):
@@ -60,7 +62,7 @@ def edit_text(slug):
     author_id = request.cookies.get('author_id')
     story = db.session.query(Story).filter(Story.slug == slug).first()
     if author_id != story.author_id:
-        abort(403)
+        abort(FORBIDDEN)
     if request.method == 'POST':
         story_title = request.form.get('header')
         story_signature = request.form.get('signature')
@@ -74,11 +76,11 @@ def edit_text(slug):
 
 
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+@app.errorhandler(BAD_REQUEST)
+def page_not_found():
+    return render_template('404.html'), BAD_REQUEST
 
 
-@app.errorhandler(403)
-def page_not_found(e):
-    return render_template('403.html'), 403
+@app.errorhandler(FORBIDDEN)
+def page_not_found():
+    return render_template('403.html'), FORBIDDEN

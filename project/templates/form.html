@@ -13,11 +13,17 @@
           <textarea name="body" class="form-control" rows="10" placeholder="Ваша история">{% if story %}{{ story['story_body']}}{% endif %}</textarea>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary" type="submit">{%if story %} Сохранить изменения {% else %} Опубликовать {% endif %}</button>
+          <button class="btn btn-primary" type="submit">
+            {% if story %}
+              Сохранить изменения
+            {% else %}
+              Опубликовать
+            {% endif %}
+          </button>
         </div>
       </form>
       {% if story %}
-      <button onclick="location.href='{{ url_for('view_text', slug=story['slug']) }}'" class="btn btn-primary" type="submit">Просмотреть историю</button>
+      <button onclick="location.href='{{ url_for('view_text', slug=story['slug']) }}'" class="btn btn-primary" type="submit">Просмотреть</button>
       {% endif %}
     </div><!-- /.container -->
 

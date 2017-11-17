@@ -59,19 +59,19 @@ def view_text(slug):
 def edit_text(slug):
     author_id = request.cookies.get('author_id')
     story = db.session.query(Story).filter(Story.slug == slug).first()
-    if author_id == story.author_id:
-        if request.method == 'POST':
-            story_title = request.form.get('header')
-            story_signature = request.form.get('signature')
-            story_body = request.form.get('body')
-            edit_text = {'story_title':story_title,
-                         'story_signature':story_signature,
-                         'story_body':story_body,
-                         'slug':slug}
-            update_text(edit_text)
-        return render_template('form.html', story=story)
-    else:
+    if author_id != story.author_id:
         abort(403)
+    if request.method == 'POST':
+        story_title = request.form.get('header')
+        story_signature = request.form.get('signature')
+        story_body = request.form.get('body')
+        edit_text = {'story_title':story_title,
+                     'story_signature':story_signature,
+                     'story_body':story_body,
+                     'slug':slug}
+        update_text(edit_text)
+    return render_template('form.html', story=story)
+
 
 
 @app.errorhandler(404)

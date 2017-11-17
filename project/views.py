@@ -77,10 +77,10 @@ def edit_text(slug):
 
 
 @app.errorhandler(BAD_REQUEST)
-def page_not_found():
+def page_not_found(e):
     return render_template('404.html'), BAD_REQUEST
 
 
 @app.errorhandler(FORBIDDEN)
-def page_not_found():
+def page_not_found(e):
     return render_template('403.html'), FORBIDDEN

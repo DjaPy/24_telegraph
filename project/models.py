@@ -6,8 +6,8 @@ db = SQLAlchemy()
 
 class Story(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.String(64))
-    slug = db.Column(db.String(32), index=True)
+    author_id = db.Column(db.String(64), index=True)
+    slug = db.Column(db.String(32))
     story_title = db.Column(db.String(128))
     story_signature = db.Column(db.String(64))
     story_body = db.Column(db.Text)

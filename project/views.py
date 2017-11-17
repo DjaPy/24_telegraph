@@ -1,4 +1,3 @@
-
 from flask import render_template, request, redirect, url_for, make_response, abort
 import uuid
 from re import sub
@@ -10,8 +9,9 @@ HOURS_LIVE_COOKIES = 24
 MAX_AGE_LIVE_COOKIES = HOURS_LIVE_COOKIES * 60 * 60
 
 
-def get_slug(item_form_title):
-    slug = sub('[\s/]', '_', item_form_title)
+def get_slug(title, uuid ):
+    slug = sub('[\s/]', '_', title)
+    slug = slug + '_' + uuid[:7]
     return slug
 
 
@@ -28,10 +28,11 @@ def add_story():
         author_id = request.cookies.get('cookie')
         if not author_id:
             author_id = str(uuid.uuid4())
+        slug_uuid = str(uuid.uuid4())
         story_title = request.form.get('header')
         story_signature = request.form.get('signature')
         story_body = request.form.get('body')
-        slug = get_slug(story_title)
+        slug = get_slug(story_title, slug_uuid)
         db.session.add(Story(author_id=author_id,
                              slug=slug,
                              story_title=story_title,
